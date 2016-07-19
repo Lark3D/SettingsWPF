@@ -54,7 +54,7 @@ namespace MySettings
 
         private void ButtonOk_Click(object sender, RoutedEventArgs e)
         {
-            Settings.Save();
+            Settings.SaveToXml();
             Close();
         }
 

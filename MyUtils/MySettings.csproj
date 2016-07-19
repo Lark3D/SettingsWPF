@@ -52,6 +52,7 @@
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="XmlOperator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="SettingsWindow.xaml">
@@ -68,6 +69,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\system_pref.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Quadra\QuadraResources\QuadraResources.csproj">
+      <Project>{e0aa512e-2c7c-4b42-bdc4-291a1715da40}</Project>
+      <Name>QuadraResources</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

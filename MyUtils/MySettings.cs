@@ -10,6 +10,7 @@ namespace MySettings
 {
     public static class Settings
     {
+
         internal static Thickness SettingsWindowElementsMargin = new Thickness(23.0, 3.0, 3.0, 3.0);
 
         static string settingsfilename = "";
@@ -17,10 +18,15 @@ namespace MySettings
         static string settingswindowtitle = "Параметры";
         static double labelswidth = 0.0;
         
-        public static string SettingsFileName
+        public static string FileName
         {
             get { return settingsfilename; }
             set { settingsfilename = value; }
+        }
+
+        public static string FileNameXml
+        {
+            get; set;
         }
 
         internal static List<SettingsCategory> SettingsCategories
@@ -68,7 +74,7 @@ namespace MySettings
 
         public static void ShowSettingsWindow(Window owner = null)
         {
-            Save();
+            //Save();
             SettingsWindow sw = new SettingsWindow();
             sw.Title = SettingsWindowTitle;
             if (owner != null)
@@ -89,11 +95,11 @@ namespace MySettings
                     s.SetDefault();
             }
 
-            if (!File.Exists(SettingsFileName)) return;
+            if (!File.Exists(FileName)) return;
 
             try
             {
-                XmlTextReader xr = new XmlTextReader(SettingsFileName);
+                XmlTextReader xr = new XmlTextReader(FileName);
                 while (xr.Read())
                 {
                     if (xr.Name == "Setting")
@@ -111,37 +117,48 @@ namespace MySettings
 
         }
 
-        public static void Save()
+        //public static void Save()
+        //{
+        //    XmlWriterSettings xws = new XmlWriterSettings();
+        //    xws.Indent = true;
+        //    XmlWriter xw = XmlWriter.Create(FileName, xws);
+
+        //    xw.WriteStartDocument();
+        //    xw.WriteComment(" Файл настроек. Не рекомендуется изменять вручную. ");
+        //    xw.WriteStartElement("Settings");
+
+        //    foreach (SettingsCategory sc in SettingsCategories)
+        //    {
+        //        xw.WriteStartElement("Category");
+        //        xw.WriteAttributeString("Description", sc.Description);
+
+        //        foreach (Setting s in sc.Settings)
+        //        {
+        //            if (s is MarkupSetting) continue;
+        //            xw.WriteComment(s.Description);
+        //            xw.WriteStartElement("Setting");
+        //            xw.WriteAttributeString("Name", s.Name);
+        //            xw.WriteAttributeString("Value", s.GetValue().ToString());
+        //            xw.WriteEndElement();
+        //        }
+
+        //        xw.WriteEndElement();
+        //    }
+        //    xw.WriteEndElement();
+        //    xw.WriteEndDocument();
+        //    xw.Close();
+        //}
+
+        public static void SaveToXml()
         {
-            XmlWriterSettings xws = new XmlWriterSettings();
-            xws.Indent = true;
-            XmlWriter xw = XmlWriter.Create(SettingsFileName, xws);
-
-            xw.WriteStartDocument();
-            xw.WriteComment(" Файл настроек. Не рекомендуется изменять вручную. ");
-            xw.WriteStartElement("Settings");
-
-            foreach (SettingsCategory sc in SettingsCategories)
-            {
-                xw.WriteStartElement("Category");
-                xw.WriteAttributeString("Description", sc.Description);
-
-                foreach (Setting s in sc.Settings)
-                {
-                    if (s is MarkupSetting) continue;
-                    xw.WriteComment(s.Description);
-                    xw.WriteStartElement("Setting");
-                    xw.WriteAttributeString("Name", s.Name);
-                    xw.WriteAttributeString("Value", s.GetValue().ToString());
-                    xw.WriteEndElement();
-                }
-
-                xw.WriteEndElement();
-            }
-            xw.WriteEndElement();
-            xw.WriteEndDocument();
-            xw.Close();
+            XmlOperator.SaveSettings(FileNameXml);
         }
+
+        public static void LoadFromXml()
+        {
+            XmlOperator.LoadSettings(FileNameXml);
+        }
+
 
         public static void InitMarkupSetting(string catname, MarkupType markuptype, string description)
         {
@@ -172,8 +189,8 @@ namespace MySettings
             s.Name = setname;
             s.Description = description;
             s.DefaultValue = defaultvalue;
-            s.MaxPosibleValue = max;
-            s.MinPosibleValue = min;
+            s.MaxPossibleValue = max;
+            s.MinPossibleValue = min;
             s.PossibleValues.AddRange(possiblevalues);
             
             GetSettingsCategory(catname).Settings.Add(s);
@@ -188,8 +205,8 @@ namespace MySettings
             s.Name = setname;
             s.Description = description;
             s.DefaultValue = defaultvalue;
-            s.MaxPosibleValue = max;
-            s.MinPosibleValue = min;
+            s.MaxPossibleValue = max;
+            s.MinPossibleValue = min;
             s.PossibleValues.AddRange(possiblevalues);
 
             GetSettingsCategory(catname).Settings.Add(s);

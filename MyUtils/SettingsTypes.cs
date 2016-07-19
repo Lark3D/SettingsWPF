@@ -153,16 +153,16 @@ namespace MySettings
 
         public int DefaultValue;
         public List<int> PossibleValues;
-        public int? MaxPosibleValue;
-        public int? MinPosibleValue;
+        public int? MaxPossibleValue;
+        public int? MinPossibleValue;
 
         public int n;
 
         public IntegerSetting()
         {
             PossibleValues = new List<int>();
-            MaxPosibleValue = null;
-            MinPosibleValue = null;
+            MaxPossibleValue = null;
+            MinPossibleValue = null;
         }
 
         public override bool Validate(object value, out string msg)
@@ -195,11 +195,11 @@ namespace MySettings
             }
 
             msg = "";
-            if (MinPosibleValue != null) msg += " Min: " + MinPosibleValue.ToString();
-            if (MaxPosibleValue != null) msg += " Max: " + MaxPosibleValue.ToString();
+            if (MinPossibleValue != null) msg += " Min: " + MinPossibleValue.ToString();
+            if (MaxPossibleValue != null) msg += " Max: " + MaxPossibleValue.ToString();
 
-            if (MaxPosibleValue.HasValue && n > MaxPosibleValue) return false;
-            if (MinPosibleValue.HasValue && n < MinPosibleValue) return false;
+            if (MaxPossibleValue.HasValue && n > MaxPossibleValue) return false;
+            if (MinPossibleValue.HasValue && n < MinPossibleValue) return false;
             msg = "";
             return true;
         }
@@ -279,16 +279,16 @@ namespace MySettings
         }
         public double DefaultValue;
         public List<double> PossibleValues;
-        public double? MaxPosibleValue;
-        public double? MinPosibleValue;
+        public double? MaxPossibleValue;
+        public double? MinPossibleValue;
 
         public double n; // это по сути, результат конвертации строки в число при вызове Validate
 
         public DoubleSetting()
         {
             PossibleValues = new List<double>();
-            MaxPosibleValue = null;
-            MinPosibleValue = null;
+            MaxPossibleValue = null;
+            MinPossibleValue = null;
         }
 
         public override bool Validate(object value, out string msg)
@@ -323,10 +323,10 @@ namespace MySettings
             }
 
             msg = "";
-            if (MinPosibleValue != null) msg += " Min: " + MinPosibleValue.ToString();
-            if (MaxPosibleValue != null) msg += " Max: " + MaxPosibleValue.ToString();
-            if (MaxPosibleValue.HasValue && n > MaxPosibleValue) return false;
-            if (MinPosibleValue.HasValue && n < MinPosibleValue) return false;
+            if (MinPossibleValue != null) msg += " Min: " + MinPossibleValue.ToString();
+            if (MaxPossibleValue != null) msg += " Max: " + MaxPossibleValue.ToString();
+            if (MaxPossibleValue.HasValue && n > MaxPossibleValue) return false;
+            if (MinPossibleValue.HasValue && n < MinPossibleValue) return false;
 
             return true;
         }
