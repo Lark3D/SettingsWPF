@@ -1,0 +1,96 @@
+﻿<UserControl x:Class="MyUtils.ColorCanvasControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MyUtils"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="350"
+             >
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ColorDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Grid x:Name="MainGrid" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="50" />
+        </Grid.ColumnDefinitions>
+<DockPanel x:Name="Dock" Grid.Column="0">
+        <Canvas x:Name="ColorCanvas" 
+                Height="{Binding ElementName=MainGrid, Path=ActualHeight}"
+                Width="{Binding ElementName=Dock, Path=ActualWidth}"
+                MouseLeftButtonDown="ColorCanvas_MouseLeftButtonDown"
+                MouseLeftButtonUp="ColorCanvas_MouseLeftButtonUp"
+                MouseMove="ColorCanvas_MouseMove" Grid.Column="0"
+                HorizontalAlignment="Stretch">
+
+            <Rectangle x:Name="ColorShadingRectangle"
+                                         Height="{Binding ElementName=ColorCanvas, Path=Height}"
+                                         Width="{Binding ElementName=ColorCanvas, Path=Width}"
+                                         Fill="{Binding SelectedHue}" />
+            <Rectangle x:Name="WhiteGradient" Width="{Binding ElementName=ColorCanvas,Path=Width}" Height="{Binding ElementName=ColorCanvas,Path=Height}">
+                <Rectangle.Fill>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Offset="0" Color="#FFFFFFFF" />
+                        <GradientStop Offset="1" Color="Transparent" />
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle x:Name="BlackGradient" Width="{Binding ElementName=ColorCanvas,Path=Width}" Height="{Binding ElementName=ColorCanvas,Path=Height}">
+                <Rectangle.Fill>
+                    <LinearGradientBrush StartPoint="0,1" EndPoint="0, 0">
+                        <GradientStop Offset="0" Color="#FF000000" />
+                        <GradientStop Offset="1" Color="#00000000" />
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Canvas x:Name="ColorSelector" Width="12" Height="12" IsHitTestVisible="False">
+                <Ellipse Width="12" Height="12" StrokeThickness="3" Stroke="#FF666666" IsHitTestVisible="False" />
+                <Ellipse Width="12" Height="12" StrokeThickness="2" Stroke="#FFFFFFFF" IsHitTestVisible="False" />
+            </Canvas>
+        </Canvas>
+    </DockPanel>
+        <!--<Canvas x:Name="SpectreCanvas"
+                Height="{Binding ElementName=MainGrid, Path=ActualHeight}"
+                Width="{Binding ElementName=Column1, Path=ActualWidth}" Grid.Column="1">
+            --><!--MouseLeftButtonDown="SpectreCanvas_MouseLeftButtonDown"
+                MouseLeftButtonUp="SpectreCanvas_MouseLeftButtonUp"-->
+             
+
+            <!--<Rectangle 
+                       Height="{Binding ElementName=SpectreCanvas, Path=ActualHeight}"
+                       Width="{Binding ElementName=SpectreCanvas, Path=ActualWidth}">
+               
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Red" Offset="0"/>
+                        <GradientStop Color="Transparent" Offset="0.3333"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+           
+            </Rectangle>
+
+        </Canvas>-->
+
+        <Slider x:Name="SpectreSlider"
+                Minimum="0" Maximum="360"
+                IsDirectionReversed="True"
+                ValueChanged="SpectreSlider_ValueChanged"
+                Grid.Column="1" Orientation="Vertical"
+                Height="{Binding ElementName=MainGrid, Path=ActualHeight}"
+                Width="{Binding ElementName=Column1, Path=ActualWidth}" 
+                >
+            <Slider.LayoutTransform>
+                <RotateTransform Angle="180" />
+            </Slider.LayoutTransform>
+
+        </Slider>
+    </Grid>
+
+</UserControl>

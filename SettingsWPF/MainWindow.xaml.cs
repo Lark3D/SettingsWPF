@@ -29,17 +29,19 @@ namespace SettingsWPF
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Settings.ShowSettingsWindow(this);
+            //Settings.ShowSettingsWindow(this);
+            ColorPickerWindow sw = new ColorPickerWindow();
+            sw.Show();
         }
 
         private void InitSettings()
         {
             //try
             //{
-            Settings.FileNameXml = @"newxml.xml";
-            Settings.SettingsWindowTitle = "Настройки программы";
-            Settings.LabelsWidth = 150.0;
-            Settings.LoadFromXml();
+            //Settings.FileNameXml = @"newxml.xml";
+            //Settings.SettingsWindowTitle = "Настройки программы";
+            //Settings.LabelsWidth = 150.0;
+            //Settings.LoadFromXml();
             //}
             //catch (Exception e)
             //{
